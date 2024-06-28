@@ -1,0 +1,259 @@
+Counter Program:
+/*const decbtn = document.getElementById("decbtn")
+const resetbtn = document.getElementById("resetbtn")
+const incbtn = document.getElementById("incbtn")
+const countlabel = document.getElementById("countlabel")
+let count = 0
+decbtn.onclick=function(){
+    count --
+    countlabel.textContent = count
+}
+resetbtn.onclick = function(){
+    count = 0
+    countlabel.textContent = count
+}
+incbtn.onclick=function(){
+    count ++
+    countlabel.textContent = count
+}*/
+
+Random Number Generator:
+const mybtn = document.getElementById("mybtn")
+const h1 = document.getElementById("h1")
+
+const min = 1
+const max = 6
+let randnum
+
+mybtn.onclick=function(){
+    randnum=Math.floor(Math.random() * max) + min
+    h1.textContent=randnum
+    console.log(randnum)
+}
+Number Guessing Game:
+const minnum = 1
+const maxnum = 100
+const answer = Math.floor(Math.random() * (maxnum - minnum+1)+minnum);
+console.log(answer)
+
+let attempts = 0
+let guess
+let running = true
+
+while(running){
+   guess = window.prompt(`guess anumber between ${minnum} - ${maxnum}`)
+   guess = Number(guess)
+   if(isNaN(guess)){
+    window.alert("invalid")
+   }
+   else if(guess < minnum || guess > maxnum){
+    window.alert("invalid")
+   }
+   else{
+    attempts += 1
+    if(guess < answer){
+        window.alert("too low")
+    }else if( guess > answer){
+        window.alert("too high")
+    }else{
+        window.alert("you got it in " + attempts + " attempts")
+        running = false    
+    }
+   }
+   
+}
+Temprature Conversion:
+const textbox = document.getElementById("textbox")
+const fah = document.getElementById("fah")
+const cel = document.getElementById("cel")
+const result = document.getElementById("result")
+let temp
+
+function convert(){
+    if(fah.checked){
+       temp = Number(textbox.value)
+       temp = temp * 9/5 + 32
+       result.textContent = temp + "*f"  
+    }
+    else if (cel.checked){
+        temp = Number(textbox.value)
+        temp = (temp - 32) * 5/9
+        result.textContent = temp + "*c" 
+    }
+    else{
+        result.textContent = "please select a unit";
+    }
+}
+DICE ROLL:
+function rollDice(){
+    const numofDice = document.getElementById("input").value
+    const diceresult = document.getElementById("diceResult")
+    const diceImages = document.getElementById("diceImages")
+    const values =[]
+    const images = []
+
+    for(let i = 0;i<numofDice;i++){
+        const value = Math.floor(Math.random()*6) + 1
+        values.push(value)
+        images.push(`<img src="DICE/${value}.png"> `)
+    }
+    diceresult.textContent=`dice:${values.join(',')}`
+    diceImages.innerHTML = images.join('')
+}
+Random Password Generator:
+const passwordLength = 11
+const includeLowercase = true
+const includeUpperCase = true
+const includeNumbers =true
+const includesymbols = true
+
+function generatePassword(passwordLength,includeLowercase,includeUpperCase,includesymbols,includeNumbers){
+    const lowercase = "abcdefghijklmnopqrstuvwxyz"
+    const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const numberchar = "0123456789"
+    const  symbolschar = "~!@#$%^&*_+?"
+    let allowedchars = ""
+    let  password = ""
+
+    allowedchars += includeLowercase ? lowercase : ""
+    allowedchars += includeUpperCase ? uppercase : ""
+    allowedchars += includeNumbers ? numberchar : ""
+    allowedchars += includesymbols ? symbolschar : ""
+    
+    if(passwordLength <= 0){
+        return `password length must be 1`
+     }
+     if(allowedchars.length === 0){
+        return `1 set of character need to be selected`
+     }
+     for( let i=0 ; i < passwordLength ; i++ ){
+        const randomIndex =Math.floor( Math.random()*allowedchars.length)
+        password += allowedchars[randomIndex]
+     }
+
+    return password
+}
+
+const password = generatePassword( passwordLength,
+    includeLowercase,
+    includeUpperCase,
+    includesymbols,
+    includeNumbers)
+
+console.log(password)   
+LIVE CLOCK :
+function update(){
+  const now = new Date()
+  const hours = now.getHours().toString().padStart(2,0)
+  const minutes = now.getMinutes().toString().padStart(2,0)
+  const seconds = now.getSeconds().toString().padStart(2,0)
+  const time  = `${hours}:${minutes}:${seconds}`
+  document.getElementById('clock').textContent = time
+}
+update()
+setInterval(update,1000)
+
+STOPWATCH:
+const display = document.getElementById("display")
+let timer = null
+let starttime = 0
+let elapsedtime = 0
+let isRunning = false
+
+function start(){
+    if(!isRunning){
+        starttime = Date.now() - elapsedtime;
+        timer = setInterval(update,10)
+        isRunning = true
+    }   
+}
+
+function stop(){
+   if(isRunning){
+     clearInterval(timer)
+     elapsedtime = Date.now()-starttime
+     isRunning = false
+   }
+}
+
+function reset(){     
+        clearInterval(timer)
+        elapsedtime = 0
+        starttime = 0
+        isRunning = false
+        display.textContent = "00:00:00:00"
+}
+
+function update(){
+   const currenttime = Date.now()
+   elapsedtime = currenttime - starttime
+
+   let hours = Math.floor(elapsedtime /(1000*68*60))
+   let minutes = Math.floor(elapsedtime/(1000*60)%60)
+   let seconds = Math.floor(elapsedtime / 1000 % 60)
+   let milliseconds = Math.floor(elapsedtime % 1000 /10)
+   hours = String(hours).padStart(2,"0")
+   minutes = String(minutes).padStart(2,"0")
+   seconds = String(seconds).padStart(2,"0")
+   milliseconds = String(milliseconds).padStart(2,"0")
+
+   display.textContent = `${hours}:${minutes}:${seconds}:${milliseconds}`
+}
+CALCULATOR:
+const display = document.getElementById("display")
+
+function apptoDis(input){
+     display.value += input;
+}
+
+function clearDisplay(){
+     display.value=""
+}
+
+function calculate(){
+    try{display.value = eval(display.value)
+    }
+    catch(error){
+        display.value = "Error"
+    }
+}
+RPS:
+const choices =["Rock",'paper','Scissor']
+const playerDisplay = document.getElementById("playerDisplay")
+const computerDisplay = document.getElementById("computerDisplay")
+const resultDisplay = document.getElementById("Result")
+
+function playGame(playerChoice){
+        const computerChoice = choices[Math.floor(Math.random()*3)]
+        let resultdisplay = ""
+
+        if(playerChoice === computerChoice){
+            resultdisplay = "It's a tie"
+        }else{
+            switch(playerChoice){
+                case "Rock":
+                 resultdisplay = (computerChoice === 'Scissor')?"you win":"you lose";
+                break;
+                case "paper":
+                    resultdisplay = (computerChoice === 'Rock')?"you win":"you lose";
+                    break;
+                case "Scissor":
+                    resultdisplay = (computerChoice === 'paper')?"you win":"you lose";
+                    break;
+            }
+
+        }
+
+        playerDisplay.textContent = `PLAYER : ${playerChoice}`
+        computerDisplay.textContent = `COMPUTER :${computerChoice}`
+        resultDisplay.textContent=resultdisplay
+
+        switch(resultdisplay){
+            case "you win":
+                resultDisplay.classList.add("yellow");
+                break;
+            case "you lose":
+                resultDisplay.classList.add("red");
+                break;
+        }
+}

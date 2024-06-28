@@ -1,0 +1,13 @@
+body{
+  background-color:yellow;
+ font-size:40px;
+font-weight:bolder;
+}
+.imp{
+   display:flex;
+  flex-direction:column;
+}
+h1 {
+color: navy;
+margin-left: 20px;
+}
