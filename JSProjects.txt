@@ -1,4 +1,4 @@
-Counter Program:
+Counter Program::
 /*const decbtn = document.getElementById("decbtn")
 const resetbtn = document.getElementById("resetbtn")
 const incbtn = document.getElementById("incbtn")
@@ -62,7 +62,7 @@ while(running){
    }
    
 }
-Temprature Conversion:
+Temprature Conversion::
 const textbox = document.getElementById("textbox")
 const fah = document.getElementById("fah")
 const cel = document.getElementById("cel")
